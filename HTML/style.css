@@ -1,0 +1,42 @@
+#signin {
+	font-size: 1.25em;
+	background-color: #F5DEB3;
+	border-width: 5px;
+	border: solid;
+	padding: 10px 10px 10px 10px;
+	margin-top: 300px;
+	margin-left: 35%;
+	margin-right: 35%;
+}
+.btn{
+	padding-top:10px;
+	text-align: right;
+	margin:10px 10px 10px 10px;
+}
+#login-btn{
+	border-radius: 28px;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	text-decoration: none;
+	display: inline-block; 
+	background-color: #A52A2A;
+	color:#ffffff;
+}
+input {
+	width:100%;
+}
+h2{
+	text-align: center;
+	color: #ffffff;
+}
+#top-head{
+	background-color: #A52A2A;
+
+}
+#forgot-pass{
+	font-size:0.75em;
+}
+#image-part{
+	text-align: center;
+	word-spacing: 30px;
+}

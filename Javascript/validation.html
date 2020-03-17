@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Login Page
+    </title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div id="signin">
+        <div id="top-head">
+            <h2>Validation</h2>
+        </div>
+        <form>
+            <div id="username">
+                <p> Name </p>
+                <input type="text" name="name" id="name" placeholder="name" onblur="solve()">
+                <div id="banner"></div>
+                <p> Age </p>
+                <input type="text" name="age" id="age" placeholder="age">
+                <div id="banner1"></div>
+            </div>
+            <button type="button" onclick="solveage()">Calulate age</button>
+        </form>
+        <p id="banner2"></p>
+    </div>
+
+    <script>
+
+        function solve() {
+            var str = document.getElementById("name").value;
+            var patt1 = /\d/i;
+            var result=str.match(patt1);
+            if (result==null)
+            document.getElementById("banner").innerHTML = "valid";
+            else
+            document.getElementById("banner").innerHTML = "invalid";
+            }
+        function solveage(){
+            var str=document.getElementById("age").value;
+            var patt1=/^(0?[1-9]|1[0-9]|2[0-9]|3[0-1])\/(0?[1-9]|1[0-2])\/([0-9]{4})$/;
+            var result=str.match(patt1);
+            if (result==null)
+            document.getElementById("banner1").innerHTML = "invalid";
+            else
+            document.getElementById("banner1").innerHTML = "valid";
+            var patt2=/[0-9]{4}/;
+            var result=str.match(patt2);
+            document.getElementById("banner2").innerHTML = 2020-result-1;
+        }
+       
+
+
+
+    </script>
+</body>
+
+</html>

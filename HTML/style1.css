@@ -1,0 +1,31 @@
+#main-container{
+	margin-right:50%;
+}
+#main-heading{
+	margin-right:30%;
+}
+#logo{
+	border-radius: 50%;
+}
+.auth-nm {
+    font-size: 16px;
+    line-height: 18px;
+    color: #133b5a;
+    float: left;
+    font-family: 'Fira Sans',sans-serif;
+    font-weight: 600;
+    margin: 3px 0 0 0;
+}
+.col3{
+	float:left;
+}
+.time-stamp{
+	text-align: right;
+	color:#8e8e8e;
+	font-size: 0.75em;
+}
+#social-media{
+	padding: 25px 5px 5px 5px;
+	background-color: #C0C0C0;
+	margin-top:50px;
+}

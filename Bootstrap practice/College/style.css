@@ -1,0 +1,21 @@
+.carousel-indicators li{
+    height: 3px !important;
+    border-radius: 0px !important;
+    width: 10%;
+}
+.carousel-caption h5{
+    font-size: 3em;
+    color: white;
+    text-shadow: 2px 2px 4px #3766ac;
+    font-family: Helvetica;
+
+}    
+.carousel-caption p{
+        font-size: 1.5em;
+        font-style: italic;
+        color: white;
+        text-shadow: 2px 2px 4px #3766ac;
+}
+.activity-container{
+    padding-top: 10px;;
+}
