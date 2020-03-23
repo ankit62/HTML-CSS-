@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Triangle</title>
+  </head>
+  <body>
+    Enter value
+    <input type="text" name="first" id="firstno">
+    Enter value:
+    <input type="text" name="second" id="secondno">
+    Enter value:
+    <input type="text" name="third" id="thirdno">
+    <button type="submit" onclick="myfunction()">Check Area</button>
+    <p id="demo"></p>
+    <script>
+        function myfunction()
+        {
+            var a=document.getElementById("firstno").value;
+            var b=document.getElementById("secondno").value;
+            var c=document.getElementById("thirdno").value;
+           
+            var s = (+a + +b + +c)/2;
+            console.log(s)
+            var area =  Math.sqrt(s*((s-a)*(s-b)*(s-c)));
+            document.getElementById("demo").innerHTML = area;
+        }
+    </script>
+
+  </body>
+</html>
