@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Entry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+
+  
+    <div class="main-container container-fluid">
+
+        <div class="row">
+            <div class="col-9 bg-grey">
+                <h1 style="color:white;">Student Data</h1>
+            </div>
+            <div class="col-3 bg-grey">
+                <div class="form-group">
+                    <form name="searchForm" class="form-inline my-2 my-lg-0">
+                        <input id="searchId" class="form-control mr-sm-2" type="text" placeholder="Search">
+                        <button id="search-btn" class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="idSearch()">Search</button>
+                    </form>
+                </div>
+                
+            </div>
+
+            <div class="col-5">
+                    <form action="" name="studentForm">
+                        <div class="form-group">
+                            <label for="idNumber">Registration ID</label>
+                            <input type="text" class="form-control" id="idNumber" placeholder="Enter your ID">
+                            <small id="idHelp" class="form-text" style="color:red;"></small>
+                            <label for="firstName" style="padding-top:5px;">Name</label>
+                        </div>
+                        <div class="form-row form-group">
+                            
+                            <div class="col">
+                              <input type="text" id="firstName" class="form-control" placeholder="First name" onfocus="checkId()">
+                            </div>
+                            <div class="col">
+                              <input type="text" id="lastName" class="form-control" placeholder="Last name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <small id="nameHelp" class="form-text" style="color:red;"></small>
+                            <label for="Email">Email address</label>
+                            <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Enter email" onfocus="checkName()">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-danger" style="padding-bottom: 5px;" onclick="addStudent()">Save</button>
+                        </div>
+                    </form>
+            </div>
+            
+            <div class="col-7 container-fluid">
+                <table class="table table-sm table-striped" id="studentTable" style="overflow-x: scroll;">
+                    <thead class="thead">
+                        <tr>
+                            <th scope="col" class="id">ID</th>
+                            <th scope="col" class="id">Name</th>
+                            <th scope="col" class="id">Email</th>
+                            <th scope="col" class="id">Edit/Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-12" id="bottom">
+
+            </div>
+            <div class="col-12" id="bottom-2">
+
+            </div>
+
+        </div>
+        
+            
+
+    </div>
+    
+
+    <script src="./js/objects.js"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
