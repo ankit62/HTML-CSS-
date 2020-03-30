@@ -1,0 +1,56 @@
+.bg-brown{
+    background-color: #116146;
+}
+.bg-purple{
+    background-color: #f8e1a9;
+}
+.card{
+    background-color:#E8A87C;
+}
+.carousel-container{
+    padding-top: 20px;
+}
+.card-deck{
+    margin-top: 30px;
+    background-color:brown;
+}
+.card-title{
+    font-size: 1em;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+.card-text{
+    font-size: 0.95em;
+    font-style: italic;
+}
+.btn-add {
+    background-color: #374785;
+}
+.btn-plus {
+    background-color: green;
+}
+.btn-minus {
+    background-color: red;
+}
+.img-fit {
+    width: 70%;
+    height: 15vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top : 10%;
+}
+
+.zoom:hover {
+    transform: scale(1.01);
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.badge {
+    position: relative;
+    margin-left: -25px;
+    margin-top: -25px;
+    background-color: rgb(219, 21, 21);
+    color: white;
+    border-radius: 50%;
+}
