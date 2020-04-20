@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container col-4 offset-4" style="text-align:center; padding-top:100px; border-style: solid; padding-bottom:100px; margin-top:100px;" >
+        <div class="text-container" style="padding-bottom: 50px;">
+            <h5>GOOGLE</h5>
+        </div>
+    
+        <div class="manipulate-text">
+            <p>
+                Select a Font: <select name="font" id="font">
+                    <option value="Arial">Arial</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Comic Sans MS">Comic Sans MS</option>
+                </select>
+            </p>
+    
+            <p>
+                Select a background color: <select name="color" id="color">
+                    <option value="red">red</option>
+                    <option value="blue">blue</option>
+                    <option value="green">green</option>
+                </select>
+            </p>
+    
+            <p>
+                Select font size: <select name="size" id="size">
+                    <option value="2em">1.05em</option>
+                    <option value="4em">1.10em</option>
+                    <option value="6em">1.15em</option>
+                </select>
+            </p>
+    
+            <p>
+                Select color: <select name="fcolor" id="fcolor">
+                    <option value="red">red</option>
+                    <option value="blue">blue</option>
+                    <option value="green">green</option>
+                </select>
+            </p>
+            <button type="button" class="btn  btn-warning" id="change" style="border-style: solid; border-color: black;">Change</button>
+        </div>
+    
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $('#change').click(function () {
+             $('h5').css({"color":$('#fcolor').val(),
+                            "font-size":$('#size').val(),
+                            "background-color":$('#color').val(),
+                            "font-family":$('#font').val()})
+        })
+    </script>
+</body>
+
+</html>
