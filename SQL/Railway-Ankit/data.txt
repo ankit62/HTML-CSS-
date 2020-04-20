@@ -1,0 +1,114 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 09, 2020 at 07:57 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.2.28
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `railways`
+--
+CREATE DATABASE IF NOT EXISTS `railways` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `railways`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule`
+--
+
+CREATE TABLE `schedule` (
+  `scode` varchar(4) DEFAULT NULL,
+  `tarr` varchar(6) DEFAULT NULL,
+  `tdept` varchar(6) DEFAULT NULL,
+  `tno` int(11) DEFAULT NULL,
+  `sname` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`scode`, `tarr`, `tdept`, `tno`, `sname`) VALUES
+('sdh', '7.10', '7.15', 121, 'sealdah'),
+('dum', '7.30', '7.45', 121, 'dumdum'),
+('durg', '8.00', '8.05', 121, 'durganagar'),
+('bar', '8.15', '8.25', 121, 'barasat'),
+('bon', '8.15', '8.25', 121, 'bonga'),
+('sdh', '7.45', '8.00', 122, 'sealdah'),
+('dum', '8.15', '8.30', 122, 'dumdum'),
+('dan', '9.00', '9.30', 122, 'dunkunki'),
+('how', '11.00', '11.30', 123, 'howrah'),
+('bard', '13.00', '13.30', 123, 'bardhaman'),
+('sdh', '13.00', '13.30', 124, 'sealdah'),
+('bid', '13.40', '13.45', 124, 'bidhannagar'),
+('dum', '13.50', '13.55', 124, 'dumdum'),
+('bark', '14.00', '14.15', 124, 'barrackpore'),
+('kal', '14.50', '14.55', 124, 'kalyani'),
+('ran', '14.60', '15.55', 124, 'ranaghat'),
+('sdh', '14.60', '15.55', 124, 'sealdah'),
+('sdh', '14.60', '15.55', 125, 'sealdah'),
+('bid', '14.60', '15.55', 125, 'bidhannagar'),
+('dum', '14.60', '15.55', 125, 'dumdum'),
+('bark', '14.60', '15.55', 125, 'barackpore'),
+('kal', '14.60', '15.55', 125, 'kalyani'),
+('ran', '14.60', '15.55', 125, 'ranaghat'),
+('kri', '14.60', '15.55', 125, 'krishnanagar');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `train`
+--
+
+CREATE TABLE `train` (
+  `tno` int(11) NOT NULL,
+  `tname` varchar(30) DEFAULT NULL,
+  `tsource` varchar(30) DEFAULT NULL,
+  `tdestination` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `train`
+--
+
+INSERT INTO `train` (`tno`, `tname`, `tsource`, `tdestination`) VALUES
+(121, 'bonga local', 'sealdah', 'bonga'),
+(122, 'dankuni local', 'sealdah', 'dankuni'),
+(123, 'keora local', 'howrah', 'bardhaman'),
+(124, 'ranaghat local', 'sealdah', 'ranaghat'),
+(125, 'krishnonagar local', 'sealdah', 'krishnonagar');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD KEY `tno` (`tno`);
+
+--
+-- Indexes for table `train`
+--
+ALTER TABLE `train`
+  ADD PRIMARY KEY (`tno`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`tno`) REFERENCES `train` (`tno`);
+COMMIT;

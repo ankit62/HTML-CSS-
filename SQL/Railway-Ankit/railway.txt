@@ -1,0 +1,85 @@
+ 
+MariaDB [railways]> desc train;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| tno          | int(11)     | NO   | PRI | NULL    |       |
+| tname        | varchar(30) | YES  |     | NULL    |       |
+| tsource      | varchar(30) | YES  |     | NULL    |       |
+| tdestination | varchar(30) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.048 sec)
+
+MariaDB [railways]> desc schedule;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| scode | varchar(4)  | YES  |     | NULL    |       |
+| tarr  | varchar(6)  | YES  |     | NULL    |       |
+| tdept | varchar(6)  | YES  |     | NULL    |       |
+| tno   | int(11)     | YES  | MUL | NULL    |       |
+| sname | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.055 sec)
+
+MariaDB [railways]> select * from train;
++-----+--------------------+---------+--------------+
+| tno | tname              | tsource | tdestination |
++-----+--------------------+---------+--------------+
+| 121 | bonga local        | sealdah | bonga        |
+| 122 | dankuni local      | sealdah | dankuni      |
+| 123 | keora local        | howrah  | bardhaman    |
+| 124 | ranaghat local     | sealdah | ranaghat     |
+| 125 | krishnonagar local | sealdah | krishnonagar |
++-----+--------------------+---------+--------------+
+5 rows in set (0.001 sec)
+
+MariaDB [railways]> select * from schedule;
++-------+-------+-------+------+--------------+
+| scode | tarr  | tdept | tno  | sname        |
++-------+-------+-------+------+--------------+
+| sdh   | 7.10  | 7.15  |  121 | sealdah      |
+| dum   | 7.30  | 7.45  |  121 | dumdum       |
+| durg  | 8.00  | 8.05  |  121 | durganagar   |
+| bar   | 8.15  | 8.25  |  121 | barasat      |
+| bon   | 8.15  | 8.25  |  121 | bonga        |
+| sdh   | 7.45  | 8.00  |  122 | sealdah      |
+| dum   | 8.15  | 8.30  |  122 | dumdum       |
+| dan   | 9.00  | 9.30  |  122 | dunkunki     |
+| how   | 11.00 | 11.30 |  123 | howrah       |
+| bard  | 13.00 | 13.30 |  123 | bardhaman    |
+| sdh   | 13.00 | 13.30 |  124 | sealdah      |
+| bid   | 13.40 | 13.45 |  124 | bidhannagar  |
+| dum   | 13.50 | 13.55 |  124 | dumdum       |
+| bark  | 14.00 | 14.15 |  124 | barrackpore  |
+| kal   | 14.50 | 14.55 |  124 | kalyani      |
+| ran   | 14.60 | 15.55 |  124 | ranaghat     |
+| sdh   | 14.60 | 15.55 |  124 | sealdah      |
+| sdh   | 14.60 | 15.55 |  125 | sealdah      |
+| bid   | 14.60 | 15.55 |  125 | bidhannagar  |
+| dum   | 14.60 | 15.55 |  125 | dumdum       |
+| bark  | 14.60 | 15.55 |  125 | barackpore   |
+| kal   | 14.60 | 15.55 |  125 | kalyani      |
+| ran   | 14.60 | 15.55 |  125 | ranaghat     |
+| kri   | 14.60 | 15.55 |  125 | krishnanagar |
++-------+-------+-------+------+--------------+
+24 rows in set (0.001 sec)
+
+MariaDB [railways]> select tname,tsource,tdestination
+    -> from train
+    -> where tno in(
+    -> select distinct(t.tno)
+    -> from schedule t,schedule s
+    -> where t.tno=s.tno
+    -> and
+    -> t.sname="sealdah"
+    -> and
+    -> s.sname="kalyani"
+    -> );
++--------------------+---------+--------------+
+| tname              | tsource | tdestination |
++--------------------+---------+--------------+
+| ranaghat local     | sealdah | ranaghat     |
+| krishnonagar local | sealdah | krishnonagar |
++--------------------+---------+--------------+
+2 rows in set (0.001 sec)
