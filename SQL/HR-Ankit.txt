@@ -1,0 +1,767 @@
+Setting environment for using XAMPP for Windows.
+hp@DESKTOP-J72AP8J c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.11-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database HR
+    -> ;
+Query OK, 1 row affected (0.044 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| classicmodels      |
+| hr                 |
+| information_schema |
+| irctc              |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| sakila             |
+| test               |
++--------------------+
+9 rows in set (0.058 sec)
+
+
+MariaDB [(none)]> use hr;
+Database changed
+
+MariaDB [hr]> create table jobs(
+    -> job_id int primary key,
+    -> job_title varchar(50) not NULL,
+    -> min_sal int, max_sal int);
+Query OK, 0 rows affected (0.571 sec)
+
+MariaDB [hr]> desc jobs;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| job_id    | int(11)     | NO   | PRI | NULL    |       |
+| job_title | varchar(50) | NO   |     | NULL    |       |
+| min_sal   | int(11)     | YES  |     | NULL    |       |
+| max_sal   | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.033 sec)
+
+
+MariaDB [hr]> create table regions( region_id int primary key, region_name varchar(50));
+Query OK, 0 rows affected (0.426 sec)
+
+MariaDB [hr]> desc regions;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| region_id   | int(11)     | NO   | PRI | NULL    |       |
+| region_name | varchar(50) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.041 sec)
+
+MariaDB [hr]> create table countries(
+    -> country_id int primary key,
+    -> country_name varchar(50),
+    -> region_id int,
+    -> foreign key(region_id) references regions(region_id));
+Query OK, 0 rows affected (1.543 sec)
+
+MariaDB [hr]> desc countries;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | int(11)     | NO   | PRI | NULL    |       |
+| country_name | varchar(50) | YES  |     | NULL    |       |
+| region_id    | int(11)     | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.039 sec)
+
+MariaDB [hr]> create table locations(
+    -> location_id int primary key,
+    -> street_address varchar(50),
+    -> postal_code varchar(30),
+    -> city varchar(10) not NULL,
+    -> state_province varchar(30),
+    -> country_id int,
+    -> foreign key(country_id) references countries(country_id));
+Query OK, 0 rows affected (0.889 sec)
+
+MariaDB [hr]> desc locations;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| location_id    | int(11)     | NO   | PRI | NULL    |       |
+| street_address | varchar(50) | YES  |     | NULL    |       |
+| postal_code    | varchar(30) | YES  |     | NULL    |       |
+| city           | varchar(10) | NO   |     | NULL    |       |
+| state_province | varchar(30) | YES  |     | NULL    |       |
+| country_id     | int(11)     | YES  | MUL | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.008 sec)
+
+
+MariaDB [hr]> insert into jobs values (123, 'Accountant' , 15000 , 25000);
+Query OK, 1 row affected (0.494 sec)
+
+MariaDB [hr]> insert into jobs values (124, 'Team Leader' , 20000 , 30000);
+Query OK, 1 row affected (0.349 sec)
+
+MariaDB [hr]> insert into jobs values (125, 'Manager' , 25000 , 35000);
+Query OK, 1 row affected (0.111 sec)
+
+MariaDB [hr]> insert into jobs values (126, 'Executive' , 35000 , 50000);
+Query OK, 1 row affected (0.036 sec)
+
+MariaDB [hr]> insert into jobs values (127, 'CEO' , 40000 , 55000);
+Query OK, 1 row affected (0.030 sec)
+
+MariaDB [hr]> select * from jobs;
++--------+-------------+---------+---------+
+| job_id | job_title   | min_sal | max_sal |
++--------+-------------+---------+---------+
+|    123 | Accountant  |   15000 |   25000 |
+|    124 | Team Leader |   20000 |   30000 |
+|    125 | Manager     |   25000 |   35000 |
+|    126 | Executive   |   35000 |   50000 |
+|    127 | CEO         |   40000 |   55000 |
++--------+-------------+---------+---------+
+5 rows in set (0.001 sec)
+
+
+MariaDB [hr]> insert into regions values (7025, 'Manipur');
+Query OK, 1 row affected (0.373 sec)
+
+MariaDB [hr]> insert into regions values (7035, 'Nagaland');
+Query OK, 1 row affected (0.335 sec)
+
+MariaDB [hr]> insert into regions values (7038, 'Jharkhand');
+Query OK, 1 row affected (0.036 sec)
+
+MariaDB [hr]> insert into regions values (7040, 'Mizoram');
+Query OK, 1 row affected (0.026 sec)
+
+MariaDB [hr]> insert into regions values (7045, 'Sikkim');
+Query OK, 1 row affected (0.040 sec)
+
+MariaDB [hr]> select * from regions;
++-----------+-------------+
+| region_id | region_name |
++-----------+-------------+
+|      7025 | Manipur     |
+|      7035 | Nagaland    |
+|      7038 | Jharkhand   |
+|      7040 | Mizoram     |
+|      7045 | Sikkim      |
++-----------+-------------+
+5 rows in set (0.001 sec)
+
+
+MariaDB [hr]> delete from regions where region_name='Nagaland';
+Query OK, 1 row affected (0.059 sec)
+
+MariaDB [hr]> delete from regions where region_name='Mizoram';
+Query OK, 1 row affected (0.029 sec)
+
+MariaDB [hr]> delete from regions where region_name='Sikkim';
+Query OK, 1 row affected (0.047 sec)
+
+MariaDB [hr]> select * from regions;
++-----------+-------------+
+| region_id | region_name |
++-----------+-------------+
+|      7025 | Manipur     |
+|      7038 | Jharkhand   |
++-----------+-------------+
+2 rows in set (0.001 sec)
+
+MariaDB [hr]> insert into regions values (7045, 'Lahore');
+Query OK, 1 row affected (0.032 sec)
+
+MariaDB [hr]> insert into regions values (7040, 'Madrid');
+Query OK, 1 row affected (0.039 sec)
+
+MariaDB [hr]> insert into regions values (7035, 'Paris');
+Query OK, 1 row affected (0.052 sec)
+
+MariaDB [hr]> select* from regions;
++-----------+-------------+
+| region_id | region_name |
++-----------+-------------+
+|      7025 | Manipur     |
+|      7035 | Paris       |
+|      7038 | Jharkhand   |
+|      7040 | Madrid      |
+|      7045 | Lahore      |
++-----------+-------------+
+5 rows in set (0.001 sec)
+
+
+
+MariaDB [hr]> insert into countries values (10, 'India' , 7025);
+Query OK, 1 row affected (0.055 sec)
+MariaDB [hr]> delete from regions where region_id=7038;
+Query OK, 1 row affected (0.026 sec)
+
+MariaDB [hr]> insert into regions values (7038, 'Mexico');
+Query OK, 1 row affected (0.030 sec)
+
+MariaDB [hr]> select * from regions;
++-----------+-------------+
+| region_id | region_name |
++-----------+-------------+
+|      7025 | Manipur     |
+|      7035 | Paris       |
+|      7038 | Mexico      |
+|      7040 | Madrid      |
+|      7045 | Lahore      |
++-----------+-------------+
+5 rows in set (0.001 sec)
+
+MariaDB [hr]> insert into countries values (11, 'France' , 7035);
+Query OK, 1 row affected (0.048 sec)
+
+MariaDB [hr]> insert into countries values (12, 'USA' , 7038);
+Query OK, 1 row affected (0.093 sec)
+
+MariaDB [hr]> insert into countries values (13, 'Spain' , 7040);
+Query OK, 1 row affected (0.323 sec)
+
+MariaDB [hr]> insert into countries values (14, 'Pakistan' , 7045);
+Query OK, 1 row affected (0.026 sec)
+
+MariaDB [hr]> select * from countries;
++------------+--------------+-----------+
+| country_id | country_name | region_id |
++------------+--------------+-----------+
+|         10 | India        |      7025 |
+|         11 | France       |      7035 |
+|         12 | USA          |      7038 |
+|         13 | Spain        |      7040 |
+|         14 | Pakistan     |      7045 |
++------------+--------------+-----------+
+5 rows in set (0.001 sec)
+
+
+MariaDB [hr]> insert into locations values (127880, '180 North King Street', 'I700' , 'Imphal' , 'Mizoram', 10);
+Query OK, 1 row affected (0.437 sec)
+
+MariaDB [hr]> insert into locations values (127887, '700 Oak Street', 'F500' , 'Marseille' , 'Ile-de-France', 11);
+Query OK, 1 row affected (0.064 sec)
+
+MariaDB [hr]> insert into locations values (127877, '374 William Canning Street', 'UA00' ,'Vioming','Jalisco', 12);
+Query OK, 1 row affected (0.056 sec)
+
+MariaDB [hr]> insert into locations values (137877, '750 Tolstoy Street', 'S800' ,'El Escorial','Barcelona', 13);
+Query OK, 1 row affected, 1 warning (0.054 sec)
+
+MariaDB [hr]> insert into locations values (130877, 'Rio De Mohammad Street', 'PA80' ,'Karachi','Punjab', 14);
+Query OK, 1 row affected (0.841 sec)
+
+MariaDB [hr]> select * from locations;
++-------------+----------------------------+-------------+------------+----------------+------------+
+| location_id | street_address             | postal_code | city       | state_province | country_id |
++-------------+----------------------------+-------------+------------+----------------+------------+
+|      127877 | 374 William Canning Street | UA00        | Vioming    | Jalisco        |         12 |
+|      127880 | 180 North King Street      | I700        | Imphal     | Mizoram        |         10 |
+|      127887 | 700 Oak Street             | F500        | Marseille  | Ile-de-France  |         11 |
+|      130877 | Rio De Mohammad Street     | PA80        | Karachi    | Punjab         |         14 |
+|      137877 | 750 Tolstoy Street         | S800        | El Escoria | Barcelona      |         13 |
++-------------+----------------------------+-------------+------------+----------------+------------+
+5 rows in set (0.001 sec)
+
+
+MariaDB [hr]> create table dept(
+    -> dept_id varchar(10) primary key,
+    -> dept_name varchar(30),
+    -> location_id int ,
+    -> foreign key(location_id) references locations(location_id));
+Query OK, 0 rows affected (0.455 sec)
+
+MariaDB [hr]> desc dept;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| dept_id     | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name   | varchar(30) | YES  |     | NULL    |       |
+| location_id | int(11)     | YES  | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.039 sec)
+
+MariaDB [hr]> insert into dept values('D1396','Administration',127877);
+Query OK, 1 row affected (0.027 sec)
+
+MariaDB [hr]> create table employee(
+    -> emp_id varchar(20) primary key,
+    -> f_name varchar(20) not NULL,
+    -> l_name varchar(20) not NULL,
+    -> email varchar(20) ,
+    -> ph_no varchar(12),
+    -> hired_date date not NULL,
+    -> job_id int ,
+    -> comm int,
+    -> mgr_id varchar(30),
+    -> dept_id varchar(20),
+    -> sal int,
+    -> check (sal>0) ,
+    -> foreign key(job_id) references jobs(job_id),
+    -> foreign key(mgr_id) references employee(emp_id),
+    -> foreign key(dept_id) references dept(dept_id));
+Query OK, 0 rows affected (0.461 sec)
+
+MariaDB [hr]> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_id     | varchar(20) | NO   | PRI | NULL    |       |
+| f_name     | varchar(20) | NO   |     | NULL    |       |
+| l_name     | varchar(20) | NO   |     | NULL    |       |
+| email      | varchar(20) | YES  |     | NULL    |       |
+| ph_no      | varchar(12) | YES  |     | NULL    |       |
+| hired_date | date        | NO   |     | NULL    |       |
+| job_id     | int(11)     | YES  | MUL | NULL    |       |
+| comm       | int(11)     | YES  |     | NULL    |       |
+| mgr_id     | varchar(30) | YES  | MUL | NULL    |       |
+| dept_id    | varchar(20) | YES  | MUL | NULL    |       |
+| sal        | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+11 rows in set (0.040 sec)
+
+
+
+MariaDB [hr]> insert into employee values('E125','Suresh','Kumar','suresh.kumar@gmail.com','+917850632541','2017/10/13',123,NULL,NULL,'D1396',15000);
+Query OK, 1 row affected, 2 warnings (0.034 sec)
+
+MariaDB [hr]> select * from employee;
++--------+--------+--------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| emp_id | f_name | l_name | email                | ph_no        | hired_date | job_id | comm | mgr_id | dept_id | sal   |
++--------+--------+--------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| E125   | Suresh | Kumar  | suresh.kumar@gmail.c | +91785063254 | 2017-10-13 |    123 | NULL | NULL   | D1396   | 15000 |
++--------+--------+--------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [hr]> insert into dept values('D1389','Sales',127880);
+Query OK, 1 row affected (0.325 sec)
+
+MariaDB [hr]> insert into dept values('D2589','Shipping',127887);
+Query OK, 1 row affected (0.036 sec)
+
+MariaDB [hr]> insert into dept values('D2679','IT',130877);
+Query OK, 1 row affected (0.057 sec)
+
+MariaDB [hr]> insert into dept values('D1859','Public Relations',137877);
+Query OK, 1 row affected (0.028 sec)
+
+MariaDB [hr]> insert into dept values('D1559','Human Resources',137877);
+Query OK, 1 row affected (0.085 sec)
+
+MariaDB [hr]> insert into dept values('D4059','Accounting',137877);
+Query OK, 1 row affected (0.054 sec)
+
+MariaDB [hr]> insert into dept values('D7559','Marketing',130877);
+Query OK, 1 row affected (0.034 sec)
+
+MariaDB [hr]> select * from dept;
++---------+------------------+-------------+
+| dept_id | dept_name        | location_id |
++---------+------------------+-------------+
+| D1389   | Sales            |      127880 |
+| D1396   | Administration   |      127877 |
+| D1559   | Human Resources  |      137877 |
+| D1859   | Public Relations |      137877 |
+| D2589   | Shipping         |      127887 |
+| D2679   | IT               |      130877 |
+| D4059   | Accounting       |      137877 |
+| D7559   | Marketing        |      130877 |
++---------+------------------+-------------+
+8 rows in set (0.001 sec)
+
+MariaDB [hr]> insert into employee values('E420','Sumeli','Rani','sumeli.rani@gmail.com','+728500632541','2017/09/23',124,1500,'E125','D1389',10000);
+Query OK, 1 row affected, 2 warnings (0.158 sec)
+
+MariaDB [hr]> select * from employee;
++--------+--------+--------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| emp_id | f_name | l_name | email                | ph_no        | hired_date | job_id | comm | mgr_id | dept_id | sal   |
++--------+--------+--------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| E125   | Suresh | Kumar  | suresh.kumar@gmail.c | +91785063254 | 2017-10-13 |    123 | NULL | NULL   | D1396   | 15000 |
+| E420   | Sumeli | Rani   | sumeli.rani@gmail.co | +72850063254 | 2017-09-23 |    124 | 1500 | E125   | D1389   | 10000 |
++--------+--------+--------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+2 rows in set (0.001 sec)
+
+MariaDB [hr]> insert into employee values('E442','Rani','Shraddha','s.rani@gmail.com','+728500688541','2018/09/13',126,1200,'E420','D1389',8000);
+Query OK, 1 row affected, 1 warning (0.043 sec)
+
+MariaDB [hr]> select * from employee;
++--------+--------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| emp_id | f_name | l_name   | email                | ph_no        | hired_date | job_id | comm | mgr_id | dept_id | sal   |
++--------+--------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| E125   | Suresh | Kumar    | suresh.kumar@gmail.c | +91785063254 | 2017-10-13 |    123 | NULL | NULL   | D1396   | 15000 |
+| E420   | Sumeli | Rani     | sumeli.rani@gmail.co | +72850063254 | 2017-09-23 |    124 | 1500 | E125   | D1389   | 10000 |
+| E442   | Rani   | Shraddha | s.rani@gmail.com     | +72850068854 | 2018-09-13 |    126 | 1200 | E420   | D1389   |  8000 |
++--------+--------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+3 rows in set (0.001 sec)
+
+MariaDB [hr]> alter table dept add mgr_id varchar(30);
+Query OK, 0 rows affected (0.101 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [hr]> select * from dept;
++---------+------------------+-------------+--------+
+| dept_id | dept_name        | location_id | mgr_id |
++---------+------------------+-------------+--------+
+| D1389   | Sales            |      127880 | NULL   |
+| D1396   | Administration   |      127877 | NULL   |
+| D1559   | Human Resources  |      137877 | NULL   |
+| D1859   | Public Relations |      137877 | NULL   |
+| D2589   | Shipping         |      127887 | NULL   |
+| D2679   | IT               |      130877 | NULL   |
+| D4059   | Accounting       |      137877 | NULL   |
+| D7559   | Marketing        |      130877 | NULL   |
++---------+------------------+-------------+--------+
+8 rows in set (0.001 sec)
+
+
+MariaDB [hr]> alter table dept add foreign key(mgr_id) references employee(emp_id);
+Query OK, 8 rows affected (1.150 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+MariaDB [hr]> update dept set mgr_id='E420' where dept_id='D1389';
+Query OK, 1 row affected (0.335 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [hr]> select * from dept;
++---------+------------------+-------------+--------+
+| dept_id | dept_name        | location_id | mgr_id |
++---------+------------------+-------------+--------+
+| D1389   | Sales            |      127880 | E420   |
+| D1396   | Administration   |      127877 | NULL   |
+| D1559   | Human Resources  |      137877 | NULL   |
+| D1859   | Public Relations |      137877 | NULL   |
+| D2589   | Shipping         |      127887 | NULL   |
+| D2679   | IT               |      130877 | NULL   |
+| D4059   | Accounting       |      137877 | NULL   |
+| D7559   | Marketing        |      130877 | NULL   |
++---------+------------------+-------------+--------+
+8 rows in set (0.000 sec)
+
+MariaDB [hr]> insert into employee values('E422','Raghav','Singh','s.raghav@gmail.com','+818588552541','2018/10/10',124,NULL,'E125','D2679',12000);
+Query OK, 1 row affected, 1 warning (0.053 sec)
+
+
+
+MariaDB [hr]> update employee set job_id=127 where emp_id='E125';
+Query OK, 1 row affected (0.078 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [hr]> select * from employee;
++--------+--------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| emp_id | f_name | l_name   | email                | ph_no        | hired_date | job_id | comm | mgr_id | dept_id | sal   |
++--------+--------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| E125   | Suresh | Kumar    | suresh.kumar@gmail.c | +91785063254 | 2017-10-13 |    127 | NULL | NULL   | D1396   | 15000 |
+| E420   | Sumeli | Rani     | sumeli.rani@gmail.co | +72850063254 | 2017-09-23 |    124 | 1500 | E125   | D1389   | 10000 |
+| E422   | Raghav | Singh    | s.raghav@gmail.com   | +81858855254 | 2018-10-10 |    124 | NULL | E125   | D2679   | 12000 |
+| E442   | Rani   | Shraddha | s.rani@gmail.com     | +72850068854 | 2018-09-13 |    126 | 1200 | E420   | D1389   |  8000 |
++--------+--------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+4 rows in set (0.001 sec)
+
+MariaDB [hr]> insert into employee values('E252','Sia','Bundela','s.bundela@gmail.com','+818586655541','2018/12/10',123,NULL,'E125','D7559',16000);
+Query OK, 1 row affected, 1 warning (0.185 sec)
+
+MariaDB [hr]> insert into employee values('E239','Riya','Shaw','r.shaw@gmail.com','+819874655541','2018/12/12',126,NULL,'E252','D7559',16000);
+Query OK, 1 row affected, 1 warning (0.919 sec)
+
+MariaDB [hr]> insert into employee values('E519','Anita','Misra','a.misra@gmail.com','+819877754841','2017/12/12',124,NULL,'E125','D4059',20000);
+Query OK, 1 row affected, 1 warning (0.059 sec)
+
+
+
+MariaDB [hr]> select * from employee;
++--------+--------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| emp_id | f_name | l_name   | email                | ph_no        | hired_date | job_id | comm | mgr_id | dept_id | sal   |
++--------+--------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| E125   | Suresh | Kumar    | suresh.kumar@gmail.c | +91785063254 | 2017-10-13 |    127 | NULL | NULL   | D1396   | 15000 |
+| E239   | Riya   | Shaw     | r.shaw@gmail.com     | +81987465554 | 2018-12-12 |    126 | NULL | E252   | D7559   | 16000 |
+| E252   | Sia    | Bundela  | s.bundela@gmail.com  | +81858665554 | 2018-12-10 |    123 | NULL | E125   | D7559   | 16000 |
+| E420   | Sumeli | Rani     | sumeli.rani@gmail.co | +72850063254 | 2017-09-23 |    124 | 1500 | E125   | D1389   | 10000 |
+| E422   | Raghav | Singh    | s.raghav@gmail.com   | +81858855254 | 2018-10-10 |    124 | NULL | E125   | D2679   | 12000 |
+| E442   | Rani   | Shraddha | s.rani@gmail.com     | +72850068854 | 2018-09-13 |    126 | 1200 | E420   | D1389   |  8000 |
+| E519   | Anita  | Misra    | a.misra@gmail.com    | +81987775484 | 2017-12-12 |    124 | NULL | E125   | D4059   | 20000 |
++--------+--------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+7 rows in set (0.001 sec)
+
+MariaDB [hr]> insert into employee values('E558','Arnab','Karn','a.karn@gmail.com','+919877564891','2017/11/15',126,NULL,'E125','D1559',20000);
+Query OK, 1 row affected, 1 warning (0.042 sec)
+
+MariaDB [hr]> insert into employee values('E127','Pankaj','Dev','p.dev@gmail.com','+919563214891','2017/08/17',126,NULL,'E125','D1859',19000);
+Query OK, 1 row affected, 1 warning (0.057 sec)
+
+MariaDB [hr]> insert into employee values('E317','Shreyashi','Kahali','s.kahali@gmail.com','+919575698421','2015/05/29',126,NULL,'E125','D2589',11500);
+Query OK, 1 row affected, 1 warning (0.042 sec)
+
+MariaDB [hr]> select * from employee;
++--------+-----------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| emp_id | f_name    | l_name   | email                | ph_no        | hired_date | job_id | comm | mgr_id | dept_id | sal   |
++--------+-----------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+| E125   | Suresh    | Kumar    | suresh.kumar@gmail.c | +91785063254 | 2017-10-13 |    127 | NULL | NULL   | D1396   | 15000 |
+| E127   | Pankaj    | Dev      | p.dev@gmail.com      | +91956321489 | 2017-08-17 |    126 | NULL | E125   | D1859   | 19000 |
+| E239   | Riya      | Shaw     | r.shaw@gmail.com     | +81987465554 | 2018-12-12 |    126 | NULL | E252   | D7559   | 16000 |
+| E252   | Sia       | Bundela  | s.bundela@gmail.com  | +81858665554 | 2018-12-10 |    123 | NULL | E125   | D7559   | 16000 |
+| E317   | Shreyashi | Kahali   | s.kahali@gmail.com   | +91957569842 | 2015-05-29 |    126 | NULL | E125   | D2589   | 11500 |
+| E420   | Sumeli    | Rani     | sumeli.rani@gmail.co | +72850063254 | 2017-09-23 |    124 | 1500 | E125   | D1389   | 10000 |
+| E422   | Raghav    | Singh    | s.raghav@gmail.com   | +81858855254 | 2018-10-10 |    124 | NULL | E125   | D2679   | 12000 |
+| E442   | Rani      | Shraddha | s.rani@gmail.com     | +72850068854 | 2018-09-13 |    126 | 1200 | E420   | D1389   |  8000 |
+| E519   | Anita     | Misra    | a.misra@gmail.com    | +81987775484 | 2017-12-12 |    124 | NULL | E125   | D4059   | 20000 |
+| E558   | Arnab     | Karn     | a.karn@gmail.com     | +91987756489 | 2017-11-15 |    126 | NULL | E125   | D1559   | 20000 |
++--------+-----------+----------+----------------------+--------------+------------+--------+------+--------+---------+-------+
+10 rows in set (0.001 sec)
+
+MariaDB [hr]> select * from dept;
++---------+------------------+-------------+--------+
+| dept_id | dept_name        | location_id | mgr_id |
++---------+------------------+-------------+--------+
+| D1389   | Sales            |      127880 | E420   |
+| D1396   | Administration   |      127877 | NULL   |
+| D1559   | Human Resources  |      137877 | NULL   |
+| D1859   | Public Relations |      137877 | NULL   |
+| D2589   | Shipping         |      127887 | NULL   |
+| D2679   | IT               |      130877 | NULL   |
+| D4059   | Accounting       |      137877 | NULL   |
+| D7559   | Marketing        |      130877 | NULL   |
++---------+------------------+-------------+--------+
+8 rows in set (0.001 sec)
+
+MariaDB [hr]> update dept set mgr_id = 'E125' where dept_id = 'D1396';
+Query OK, 1 row affected (0.060 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [hr]> select * from dept;
++---------+------------------+-------------+--------+
+| dept_id | dept_name        | location_id | mgr_id |
++---------+------------------+-------------+--------+
+| D1389   | Sales            |      127880 | E420   |
+| D1396   | Administration   |      127877 | E125   |
+| D1559   | Human Resources  |      137877 | NULL   |
+| D1859   | Public Relations |      137877 | NULL   |
+| D2589   | Shipping         |      127887 | NULL   |
+| D2679   | IT               |      130877 | NULL   |
+| D4059   | Accounting       |      137877 | NULL   |
+| D7559   | Marketing        |      130877 | NULL   |
++---------+------------------+-------------+--------+
+8 rows in set (0.000 sec)
+
+MariaDB [hr]> update dept set mgr_id = 'E558' where dept_id = 'D1559';
+Query OK, 1 row affected (0.051 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [hr]> select * from dept;
++---------+------------------+-------------+--------+
+| dept_id | dept_name        | location_id | mgr_id |
++---------+------------------+-------------+--------+
+| D1389   | Sales            |      127880 | E420   |
+| D1396   | Administration   |      127877 | E125   |
+| D1559   | Human Resources  |      137877 | E558   |
+| D1859   | Public Relations |      137877 | NULL   |
+| D2589   | Shipping         |      127887 | NULL   |
+| D2679   | IT               |      130877 | NULL   |
+| D4059   | Accounting       |      137877 | NULL   |
+| D7559   | Marketing        |      130877 | NULL   |
++---------+------------------+-------------+--------+
+8 rows in set (0.000 sec)
+
+MariaDB [hr]> update dept set mgr_id = 'E127' where dept_id = 'D1859';
+Query OK, 1 row affected (0.049 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [hr]> update dept set mgr_id = 'E317' where dept_id = 'D2589';
+Query OK, 1 row affected (0.053 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [hr]> update dept set mgr_id = 'E422' where dept_id = 'D2679';
+Query OK, 1 row affected (0.027 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [hr]> update dept set mgr_id = 'E519' where dept_id = 'D4059';
+Query OK, 1 row affected (0.020 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [hr]> update dept set mgr_id = 'E252' where dept_id = 'D7559';
+Query OK, 1 row affected (0.071 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [hr]> select * from dept;
++---------+------------------+-------------+--------+
+| dept_id | dept_name        | location_id | mgr_id |
++---------+------------------+-------------+--------+
+| D1389   | Sales            |      127880 | E420   |
+| D1396   | Administration   |      127877 | E125   |
+| D1559   | Human Resources  |      137877 | E558   |
+| D1859   | Public Relations |      137877 | E127   |
+| D2589   | Shipping         |      127887 | E317   |
+| D2679   | IT               |      130877 | E422   |
+| D4059   | Accounting       |      137877 | E519   |
+| D7559   | Marketing        |      130877 | E252   |
++---------+------------------+-------------+--------+
+8 rows in set (0.001 sec)
+
+
+
+
+MariaDB [hr]> create table job_history(
+    ->  emp_id varchar(10),
+    ->  start_date date not NULL,
+    ->  end_date date not NULL,
+    ->      job_id int ,
+    ->     dept_id varchar(30),
+    ->      foreign key(emp_id) references employee(emp_id),
+    ->      foreign key(job_id) references jobs(job_id),
+    ->      foreign key(dept_id) references dept(dept_id),primary key(emp_id, start_date));
+Query OK, 0 rows affected (0.442 sec)
+
+MariaDB [hr]> desc  job_history;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_id     | varchar(10) | NO   | PRI | NULL    |       |
+| start_date | date        | NO   | PRI | NULL    |       |
+| end_date   | date        | NO   |     | NULL    |       |
+| job_id     | int(11)     | YES  | MUL | NULL    |       |
+| dept_id    | varchar(30) | YES  | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.035 sec)
+
+MariaDB [hr]> insert into job_history values('E125','2017/10/13','2020/04/12',127,'D1396');
+Query OK, 1 row affected (0.065 sec)
+
+MariaDB [hr]> SELECT *  FROM DEPT;
++---------+------------------+-------------+--------+
+| dept_id | dept_name        | location_id | mgr_id |
++---------+------------------+-------------+--------+
+| D1389   | Sales            |      127880 | E420   |
+| D1396   | Administration   |      127877 | E125   |
+| D1559   | Human Resources  |      137877 | E558   |
+| D1859   | Public Relations |      137877 | E127   |
+| D2589   | Shipping         |      127887 | E317   |
+| D2679   | IT               |      130877 | E422   |
+| D4059   | Accounting       |      137877 | E519   |
+| D7559   | Marketing        |      130877 | E252   |
++---------+------------------+-------------+--------+
+8 rows in set (0.001 sec)
+
+MariaDB [hr]> insert into job_history values('E127','2017/08/17','2020/04/12',126,'D1859');
+Query OK, 1 row affected (0.053 sec)
+
+MariaDB [hr]> insert into job_history values('E239','2018/12/12','2020/04/12',126,'D7559');
+Query OK, 1 row affected (0.050 sec)
+
+MariaDB [hr]> insert into job_history values('E252','2018/12/10','2020/04/12',123,'D7559');
+Query OK, 1 row affected (0.028 sec)
+
+MariaDB [hr]> insert into job_history values('E317','2015/05/29','2020/04/12',126,'D2589');
+Query OK, 1 row affected (0.063 sec)
+
+MariaDB [hr]> insert into job_history values('E420','2017/09/23','2020/04/12',124,'D1389');
+Query OK, 1 row affected (0.048 sec)
+
+MariaDB [hr]> insert into job_history values('E422','2018/10/10','2019/04/05',124,'D2679');
+Query OK, 1 row affected (0.046 sec)
+
+MariaDB [hr]> select * from job_history;
++--------+------------+------------+--------+---------+
+| emp_id | start_date | end_date   | job_id | dept_id |
++--------+------------+------------+--------+---------+
+| E125   | 2017-10-13 | 2020-04-12 |    127 | D1396   |
+| E127   | 2017-08-17 | 2020-04-12 |    126 | D1859   |
+| E239   | 2018-12-12 | 2020-04-12 |    126 | D7559   |
+| E252   | 2018-12-10 | 2020-04-12 |    123 | D7559   |
+| E317   | 2015-05-29 | 2020-04-12 |    126 | D2589   |
+| E420   | 2017-09-23 | 2020-04-12 |    124 | D1389   |
+| E422   | 2018-10-10 | 2019-04-05 |    124 | D2679   |
++--------+------------+------------+--------+---------+
+7 rows in set (0.001 sec)
+
+
+
+
+MariaDB [hr]> insert into job_history values('E442','2018/09/13','2018/12/12',126,'D1389');
+Query OK, 1 row affected (0.054 sec)
+
+MariaDB [hr]> insert into job_history values('E519','2017/12/12','2020/04/12',124,'D4059');
+Query OK, 1 row affected (0.041 sec)
+
+MariaDB [hr]> insert into job_history values('E558','2017/11/15','2018/05/12',126,'D1559');
+Query OK, 1 row affected (0.096 sec)
+
+MariaDB [hr]> select * from job_history;
++--------+------------+------------+--------+---------+
+| emp_id | start_date | end_date   | job_id | dept_id |
++--------+------------+------------+--------+---------+
+| E125   | 2017-10-13 | 2020-04-12 |    127 | D1396   |
+| E127   | 2017-08-17 | 2020-04-12 |    126 | D1859   |
+| E239   | 2018-12-12 | 2020-04-12 |    126 | D7559   |
+| E252   | 2018-12-10 | 2020-04-12 |    123 | D7559   |
+| E317   | 2015-05-29 | 2020-04-12 |    126 | D2589   |
+| E420   | 2017-09-23 | 2020-04-12 |    124 | D1389   |
+| E422   | 2018-10-10 | 2019-04-05 |    124 | D2679   |
+| E442   | 2018-09-13 | 2018-12-12 |    126 | D1389   |
+| E519   | 2017-12-12 | 2020-04-12 |    124 | D4059   |
+| E558   | 2017-11-15 | 2018-05-12 |    126 | D1559   |
++--------+------------+------------+--------+---------+
+10 rows in set (0.001 sec)
+
+
+MariaDB [hr]> update job_history set end_date='2019/08/15' where emp_id='E239';
+Query OK, 1 row affected (0.059 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+MariaDB [hr]> update job_history set end_date='2019/12/12' where emp_id='E239';
+Query OK, 1 row affected (0.074 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+MariaDB [hr]> select * from job_history;
++--------+------------+------------+--------+---------+
+| emp_id | start_date | end_date   | job_id | dept_id |
++--------+------------+------------+--------+---------+
+| E125   | 2017-10-13 | 2020-04-12 |    127 | D1396   |
+| E127   | 2017-08-17 | 2020-04-12 |    126 | D1859   |
+| E239   | 2018-12-12 | 2019-12-12 |    126 | D7559   |
+| E252   | 2018-12-10 | 2020-04-12 |    123 | D7559   |
+| E317   | 2015-05-29 | 2020-04-12 |    126 | D2589   |
+| E420   | 2017-09-23 | 2020-04-12 |    124 | D1389   |
+| E422   | 2018-10-10 | 2019-04-05 |    124 | D2679   |
+| E442   | 2018-09-13 | 2018-12-12 |    126 | D1389   |
+| E519   | 2017-12-12 | 2020-04-12 |    124 | D4059   |
+| E558   | 2017-11-15 | 2018-05-12 |    126 | D1559   |
++--------+------------+------------+--------+---------+
+10 rows in set (0.001 sec)
+
+
+
+MariaDB [hr]> select emp_id, job_id, (datediff(end_date,start_date))  from job_history where end_date<curdate();
++--------+--------+---------------------------------+
+| emp_id | job_id | (datediff(end_date,start_date)) |
++--------+--------+---------------------------------+
+| E239   |    126 |                             365 |
+| E422   |    124 |                             177 |
+| E442   |    126 |                              90 |
+| E558   |    126 |                             178 |
++--------+--------+---------------------------------+
+4 rows in set (0.001 sec)
+
+
+
+MariaDB [hr]> select emp_id,j.dept_id, job_id,dept_name, (datediff(end_date,start_date))  from job_history j, dept d where end_date<curdate() and j.dept_id=d.dept_id;
++--------+---------+--------+-----------------+---------------------------------+
+| emp_id | dept_id | job_id | dept_name       | (datediff(end_date,start_date)) |
++--------+---------+--------+-----------------+---------------------------------+
+| E239   | D7559   |    126 | Marketing       |                             365 |
+| E422   | D2679   |    124 | IT              |                             177 |
+| E442   | D1389   |    126 | Sales           |                              90 |
+| E558   | D1559   |    126 | Human Resources |                             178 |
++--------+---------+--------+-----------------+---------------------------------+
+4 rows in set (0.001 sec)
