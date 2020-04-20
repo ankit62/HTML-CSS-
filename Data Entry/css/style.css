@@ -1,0 +1,21 @@
+.main-container{
+    background-color: black;
+}
+.col-3{
+    padding-top:10px ;
+}
+.bg-grey{
+    background-color: #bd2130;;
+}
+.col-5{
+    color:white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;;
+}
+.id{
+    color:white;
+}
+.col-7{
+    color:white;
+}
